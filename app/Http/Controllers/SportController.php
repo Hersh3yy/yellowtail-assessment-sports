@@ -13,7 +13,7 @@ class SportController extends Controller
      */
     public function index()
     {
-        //
+        return Sport::all();
     }
 
     /**
@@ -29,7 +29,13 @@ class SportController extends Controller
      */
     public function store(StoreSportRequest $request)
     {
-        //
+        $sport = new Sport();
+
+        $sport->name = $request->name;
+
+        $sport->save();
+
+        return $sport;   
     }
 
     /**

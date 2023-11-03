@@ -34,8 +34,14 @@ class MemberController extends Controller
         $member->first_name = $request->first_name;
         $member->last_name = $request->last_name;
         $member->image = $request->image;
-
         $member->save();
+        $sports = $request->sports;
+        if($sports) {
+            $member->sports()->attach($sports);
+            $member->save();
+        }
+
+        
 
         return $member;
     }
@@ -69,6 +75,7 @@ class MemberController extends Controller
      */
     public function destroy(Member $member)
     {
-        //
+        $member->delete();
+        return 'OK';
     }
 }

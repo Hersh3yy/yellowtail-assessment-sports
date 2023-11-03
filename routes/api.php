@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\SportController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,4 +23,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::controller(MemberController::class)->group(function () {
     Route::get('/members', 'index');
     Route::post('/members', 'store');
+    Route::delete('/members/{id}', 'destroy');
+});
+
+Route::controller(SportController::class)->group(function () {
+    Route::get('/sports', 'index');
+    Route::post('/sports', 'store');
 });
