@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Sport extends Model
+class Member extends Model
 {
     use HasFactory;
 
@@ -16,11 +16,13 @@ class Sport extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'name'
+        'first_name',
+        'last_name',
+        'image',
     ];
 
-    public function members(): BelongsToMany
+    public function sports(): BelongsToMany
     {
-        return $this->belongsToMany(Member::class);
+        return $this->belongsToMany(Sport::class, 'member_sport', 'member_id', 'sport_id');
     }
 }
