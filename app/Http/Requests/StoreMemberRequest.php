@@ -17,6 +17,7 @@ class StoreMemberRequest extends FormRequest
             'first_name' => ['string', 'max:255'],
             'last_name' => ['string', 'max:255'],
             'image' => ['string', 'max:255'],
+            'sports' => ['array', 'nullable']
         ];
     }
 }

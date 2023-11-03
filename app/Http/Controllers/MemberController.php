@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreMemberRequest;
 use App\Http\Requests\UpdateMemberRequest;
 use App\Models\Member;
+use Illuminate\Support\Facades\Validator;
 
 class MemberController extends Controller
 {
@@ -29,12 +30,26 @@ class MemberController extends Controller
      */
     public function store(StoreMemberRequest $request)
     {
-        $member = new Member;
+        $validator = Validator::make($request->all(), [
+            'first_name' => 'required|string|max:40',
+            'last_name' => 'required|string|max:40',
+            'image' => 'string|max:255',
+            'sports' => 'array|nullable'
+        ]);
+ 
+        if ($validator->fails()) {
+            return $validator->errors();
+        };
+
+        $validator->validate();
+
+        $member = new Member();
 
         $member->first_name = $request->first_name;
         $member->last_name = $request->last_name;
         $member->image = $request->image;
         $member->save();
+        
         $sports = $request->sports;
         if($sports) {
             $member->sports()->attach($sports);
@@ -67,7 +82,18 @@ class MemberController extends Controller
      */
     public function update(UpdateMemberRequest $request, Member $member)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'first_name' => 'required|string|max:40',
+            'last_name' => 'required|string|max:40',
+            'image' => 'string|max:255',
+            'sports' => 'array|nullable'
+        ]);
+
+        if ($validator->fails()) {
+            return $validator->errors();
+        };
+
+        $validator->validate();
     }
 
     /**

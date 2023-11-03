@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('member_sport', function (Blueprint $table) {
             $table->integer('member_id');
             $table->integer('sport_id');
+            $table->index(['member_id', 'sport_id']);
             $table->timestamps();
         });
     }
